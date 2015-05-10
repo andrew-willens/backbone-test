@@ -1,11 +1,10 @@
 {
   "name": "front-end-quiz",
   "version": "0.0.0",
-  "homepage": "https://github.com/1stdibs/front-end-quiz",
+  "homepage": "https://github.com/andrew-willens/backbone-test",
   "authors": [
     "Andrew Willens <andrew.willens@gmail.com>"
   ],
-  "description": "Challenge for 1stdibs.com",
   "license": "MIT",
   "ignore": [
     "**/.*",

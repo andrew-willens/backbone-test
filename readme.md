@@ -4,9 +4,9 @@ Certain fields ("materials" dropdown, radio button groups) require enumerations 
 
 #### item.json ####
 
-This file is a very simplified version of the 1stdibs item model. An item is simply a thing that is available for sale on 1stdibs.com. 
+This file is a very simplified version of the item model. An item is simply a thing that is available for sale. 
 
-1stdibs.com private internal APIs return models wrapped in a common wrapper with the model residing in the `result` property.
+Private internal APIs return models wrapped in a common wrapper with the model residing in the `result` property.
 
 #### validations ####
 
