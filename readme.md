@@ -1,6 +1,4 @@
-### 1stdibs.com front-end developer candidate quiz ###
-
-Using Backbone and jQuery take `item.json` and render a form similar to the form illustrated in `1stdibs_fe_quiz.jpg`.
+Using Backbone and jQuery take `item.json` and render a form similar to the form illustrated in `form.png`.
 
 Certain fields ("materials" dropdown, radio button groups) require enumerations that can be found in the `enums.json` file.
 
@@ -12,7 +10,7 @@ This file is a very simplified version of the 1stdibs item model. An item is sim
 
 #### validations ####
 
-No validation is required for this quiz. There is one state condition that is required. The condition is that part of the form be disabled until the user selects an option in another field. See `1stdibs_fe_quiz.jpg` for the details.
+No validation is required for this quiz. There is one state condition that is required. The condition is that part of the form be disabled until the user selects an option in another field. See `form.png` for the details.
 
 #### CSS ####
 
@@ -28,7 +26,7 @@ Feel free to use Twitter Bootstrap to match the style in the jpeg example.
 
 1. Pressing the Save button should dump an updated and/or edited item.json to the browser console to demonstrate that it could be persisted to the server.
 
-1. As mentioned earlier, there is a state condition that must be handled. See `1stdibs_fe_quiz.jpg` for the details. 
+1. As mentioned earlier, there is a state condition that must be handled. See `form.png` for the details. 
 
 #### Tips ####
 
