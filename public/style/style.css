@@ -1,0 +1,62 @@
+/* page layout */
+    body {
+        padding: 2%;
+    }
+    
+    li {
+        list-style: none;
+        padding-bottom: 2em;
+    }
+
+    input, label {
+        display: block;
+    }
+
+    input[type='radio'], input[type='checkbox'] {
+        display: inline;
+        margin-right: .5em !important;
+    }
+
+    input[type='radio'] {
+        margin-left: 1em;
+    }
+/* end page layout */
+
+
+/* font styling */
+    .bottom {
+        position: relative;
+        top: 2px;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .unbold {
+        font-weight: normal;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+/* end font styling */
+
+
+/* section-specific */
+    /*measurements*/
+    .measurements input, .measurements label {
+        display: inline;
+        padding-right: 2em;
+    }
+
+    /* dimensions */
+    .sizing-table td {
+        padding: .5em 2em 0 0;
+    }
+
+    .sizing {
+        width: 15em;
+    } 
+/* end section-specific */
+

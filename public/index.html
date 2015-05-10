@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Backbone.js Form</title>
+    
+    <!-- vendor javascripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://documentcloud.github.com/underscore/underscore-min.js">
+    </script>
+    <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+    
+    <!-- local javascripts -->
+    <script src="models/Item.model.js"></script>
+    <script src="views/logic/measurements.js"></script>
+
+
+    <!-- styles -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/style.css">
+
+</head>
+<body>
+    <form id="1dbs-form" >
+            <ul>
+                <li>
+                    <label for="title">Title</label>
+                    <input id="title" type="text">        
+                </li>
+                
+                <li>
+                    <label for="description">Description</label>
+                    <textarea id="description" form_id="1dbs-form"></textarea>
+                </li>
+                
+                <li>
+                    <label for="internal-notes">Internal Notes</label>
+                    <textarea id="internal-notes" form_id="1dbs-form"></textarea>
+                </li>
+                
+                <li>
+                    <label for="materials">Materials</label>
+                    <select id="materials">
+                        <option>Select...</option>
+                    </select>
+                </li>
+
+                <li>
+                    <input type="checkbox">
+                    <span class="bottom"><span class="bold">Check this box</span> if the listing contains or may contain restricted material.</span>
+                </li>
+
+                <label for="measurements">Measurements</label>
+                <li id="measurements" class="measurements">
+                    <div>
+                        Measurements are in: 
+                        <input type="radio"><span class="bottom">Inches (in)</span>
+                        <input type="radio"><span class="bottom">Centimeters (cm)</span>
+                    </div>
+                    <div>
+                        Measured item is: 
+                        <input type="radio"><span class="bottom">Rectangular</span>
+                        <input type="radio"><span class="bottom">Circular</span>
+                    </div>
+                </li>
+            
+                <li id='sizing-table-li'>
+                </li>
+
+                <li>
+                    <label>Condition <span class="unbold italic">( Select One )</span></label>
+                    <div>
+                        <input type="radio"><span class="bottom">Distressed</span>
+                        <input type="radio"><span class="bottom">Fair</span>
+                        <input type="radio"><span class="bottom">Good</span>
+                        <input type="radio"><span class="bottom">Excellent</span>
+                    </div>
+                </li>
+
+                <input class="btn btn-primary" type="submit" value="Save">
+            </ul>
+    </form>
+</body>
+</html>
