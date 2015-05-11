@@ -8,16 +8,10 @@
     <script src="http://documentcloud.github.com/underscore/underscore-min.js">
     </script>
     <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
-    
-    <!-- local javascripts -->
-    <script src="models/Item.model.js"></script>
-    <script src="views/logic/measurements.js"></script>
-
 
     <!-- styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="assets/style.css">
 
 </head>
 <body>
@@ -64,7 +58,16 @@
                     </div>
                 </li>
             
-                <li id='sizing-table-li'>
+                <li id='sizingtable-container'>
+                    <script type="text/template" id="sizingtable-tpl">
+                        <td>
+                            <label><%= title %>:</label>
+                            <div class="input-group sizing">
+                                <input type="text" class="form-control" >
+                                <div class="input-group-addon">in.</div>
+                            </div>
+                        </td>
+                    </script>
                 </li>
 
                 <li>
@@ -80,5 +83,10 @@
                 <input class="btn btn-primary" type="submit" value="Save">
             </ul>
     </form>
+
+
+    <!-- local javascripts -->
+    <script src="models/Item.model.js"></script>
+    <script src="views/logic/measurements.js"></script>
 </body>
 </html>
