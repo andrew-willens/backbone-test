@@ -5,6 +5,7 @@ var Measurements = Backbone.View.extend({
 
     initialize: function() {
         console.log('Measurements view initialized');
+        this.template = _.template( $("#sizingtable-tpl").html() );
         this.render();
     },
 
@@ -13,10 +14,9 @@ var Measurements = Backbone.View.extend({
                 str = "";
 
         for (var i = 0; i < meas_units.length; i++) {
-            var tpl = _.template( $("#sizingtable-tpl").html() );
             var title = meas_units[i].charAt(0).toUpperCase() + meas_units[i].slice(1);
 
-            tpl = tpl({title: title });
+            var tpl = this.template({title: title });
 
             str += (i+1) % 2 === 0 ? tpl + "</tr>" : "<tr>" + tpl;
         };

@@ -3,10 +3,6 @@
         padding: 2%;
     }
     
-    li {
-        list-style: none;
-        padding-bottom: 2em;
-    }
 
     input, label {
         display: block;
@@ -19,6 +15,14 @@
 
     input[type='radio'] {
         margin-left: 1em;
+    }
+    
+    .container {
+        padding-bottom: 2em;
+    }
+
+    .form-control {
+        width: 17em;
     }
 /* end page layout */
 
@@ -57,6 +61,18 @@
 
     .sizing {
         width: 15em;
-    } 
+    }
+
+    textarea, input[type='text'] {
+        width: 34em;        
+    }
+
+    .description {
+        height: 15em;
+    }
+
+    .internal-notes {
+        height: 6em;
+    }
 /* end section-specific */
 

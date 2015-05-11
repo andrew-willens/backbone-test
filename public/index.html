@@ -16,81 +16,86 @@
 </head>
 <body>
     <form id="1dbs-form" >
-            <ul>
-                <li>
-                    <label for="title">Title</label>
-                    <input id="title" type="text">        
-                </li>
-                
-                <li>
-                    <label for="description">Description</label>
-                    <textarea id="description" form_id="1dbs-form"></textarea>
-                </li>
-                
-                <li>
-                    <label for="internal-notes">Internal Notes</label>
-                    <textarea id="internal-notes" form_id="1dbs-form"></textarea>
-                </li>
-                
-                <li>
-                    <label for="materials">Materials</label>
-                    <select id="materials-container"></select>
-                    <script type="text/template" id="materials-tpl">
-                        <option><%= option %></option>
-                    </script>
-                </li>
+        <div class="container">
+            <label for="title">Title</label>
+            <input class="title" type="text">        
+        </div>
+        
+        <div class="container">
+            <label for="description">Description</label>
+            <textarea class="description" form_id="1dbs-form"></textarea>
+        </div>
+        
+        <div class="container">
+            <label for="internal-notes">Internal Notes</label>
+            <textarea class="internal-notes" form_id="1dbs-form"></textarea>
+        </div>
+        
+        <div class="container">
+            <label for="materials">Materials</label>
+            <select id="materials-container" class="form-control"></select>
+            <script type="text/template" id="materials-tpl">
+                <option><%= option %></option>
+            </script>
+        </div>
 
-                <li>
-                    <input type="checkbox">
-                    <span class="bottom"><span class="bold">Check this box</span> if the listing contains or may contain restricted material.</span>
-                </li>
+        <div class="container">
+            <input type="checkbox">
+            <span class="bottom"><span class="bold">Check this box</span> if the listing contains or may contain restricted materials</span>
+        </div>
 
-                <label for="units-container">Measurements</label>
-                <li class="measurements">
-                    <div id="units-container"></div>
-                    <script type="text/template" id="unitsdiv-tpl">
-                        <div>
-                            <%= description %>:
-                        </div>
-                    </script>
-                    <script type="text/template" id="unitsradio-tpl">
-                        <input type="radio"><span class="bottom"><%= unit %> (<%= abbr %>)</span>
-                    </script>
-                </li>
+        <div class="container">
+            <label for="units-container">Measurements</label>
+            <div id="units-container"></div>
             
-                <li>
-                    <table id='sizing-table'></table>
-                    <script type="text/template" id="sizingtable-tpl">
-                        <td>
-                            <label><%= title %>:</label>
-                            <div class="input-group sizing">
-                                <input type="text" class="form-control" >
-                                <div class="input-group-addon">in.</div>
-                            </div>
-                        </td>
-                    </script>
-                </li>
-
-                <li>
-                    <label>Condition <span class="unbold italic">( Select One )</span></label>
-                    <div>
-                        <input type="radio"><span class="bottom">Distressed</span>
-                        <input type="radio"><span class="bottom">Fair</span>
-                        <input type="radio"><span class="bottom">Good</span>
-                        <input type="radio"><span class="bottom">Excellent</span>
+            <script type="text/template" id="unitsdiv-tpl">
+                <div>
+                    Measurements are in:
+                    <% _.each(units, function(val, key) { %>
+                    <input type="radio"><span class="bottom"><%= val %> (<%= key %>)</span>
+                    <% }); %>
+                </div>
+                <div>
+                    Measured item is:
+                    <% _.each(shapes, function(val, key) { %>
+                    <input type="radio"><span class="bottom"><%= val %></span>
+                    <% }); %>
+                </div>
+            </script>
+        </div>
+    
+        <div class="container">
+            <table id='sizing-table'></table>
+            <script type="text/template" id="sizingtable-tpl">
+                <td>
+                    <label><%= title %>:</label>
+                    <div class="input-group sizing">
+                        <input type="text" class="form-control" >
+                        <div class="input-group-addon">in.</div>
                     </div>
-                </li>
+                </td>
+            </script>
+        </div>
 
-                <input class="btn btn-primary" type="submit" value="Save">
-            </ul>
+        <div class="container">
+            <label for="conditions-container">Condition <span class="unbold italic">( Select One )</span></label>
+            <div id="conditions-container"></div>
+
+            <script type="text/template" id="conditions-tpl" >
+                <input type="radio"><span class="bottom"><%= condition %></span>
+            </script>
+        </div>
+
+        <div class="container">
+            <input class="btn btn-primary" type="submit" value="Save">
+        </div>
     </form>
-
 
     <!-- local javascripts -->
     <script src="models/Item.model.js"></script>
     <script src="views/Materials.js"></script>
     <script src="views/Measurements.js"></script>
-    <script src="views/Radio.js"></script>
     <script src="views/Units.js"></script>
+    <script src="views/Conditions.js"></script>
 </body>
 </html>

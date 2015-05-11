@@ -1,21 +1,20 @@
 var Materials = Backbone.View.extend({
-    tagName: 'select',
     el: "#materials-container",
 
     initialize: function() {
         console.log('Materials View initialized.');
+        this.template = _.template( $("#materials-tpl").html() );
         this.render();
     },
 
     render: function() {
-        var options = ["Wood", "Metal", "Ceramic", "Glass", "Leather"];
-        var str = "";
+        var options = ["Wood", "Metal", "Ceramic", "Glass", "Leather"],
+            str = "";
 
         for (var i = 0; i < options.length; i++) {
-            var tpl = _.template( $("#materials-tpl").html() );
             var option = options[i].charAt(0).toUpperCase() + options[i].slice(1);
 
-            str += tpl({option: option });
+            str += this.template({option: option });
         };
 
         this.$el.append(str);
