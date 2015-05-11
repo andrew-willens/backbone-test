@@ -1,12 +1,10 @@
 "use strict";
-
-var Measurement = Backbone.View.extend({
+var Measurements = Backbone.View.extend({
     tagName: 'table',
-    el: "#sizingtable-container",
+    el: "#sizing-table",
 
     initialize: function() {
-        console.log('Measurement view initialized');
-        // this.setTemplate('views/tpl/measurement_td.html');
+        console.log('Measurements view initialized');
         this.render();
     },
 
@@ -29,4 +27,4 @@ var Measurement = Backbone.View.extend({
     }
 });
 
-var meas = new Measurement();
+var meas = new Measurements();

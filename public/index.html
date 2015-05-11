@@ -34,9 +34,10 @@
                 
                 <li>
                     <label for="materials">Materials</label>
-                    <select id="materials">
-                        <option>Select...</option>
-                    </select>
+                    <select id="materials-container"></select>
+                    <script type="text/template" id="materials-tpl">
+                        <option><%= option %></option>
+                    </script>
                 </li>
 
                 <li>
@@ -44,21 +45,21 @@
                     <span class="bottom"><span class="bold">Check this box</span> if the listing contains or may contain restricted material.</span>
                 </li>
 
-                <label for="measurements">Measurements</label>
-                <li id="measurements" class="measurements">
-                    <div>
-                        Measurements are in: 
-                        <input type="radio"><span class="bottom">Inches (in)</span>
-                        <input type="radio"><span class="bottom">Centimeters (cm)</span>
-                    </div>
-                    <div>
-                        Measured item is: 
-                        <input type="radio"><span class="bottom">Rectangular</span>
-                        <input type="radio"><span class="bottom">Circular</span>
-                    </div>
+                <label for="units-container">Measurements</label>
+                <li class="measurements">
+                    <div id="units-container"></div>
+                    <script type="text/template" id="unitsdiv-tpl">
+                        <div>
+                            <%= title %>:
+                        </div>
+                    </script>
+                    <script type="text/template" id="unitsradio-tpl">
+                        <input type="radio"><span class="bottom"><%= unit %>(<%= abbr %>)</span>
+                    </script>
                 </li>
             
-                <li id='sizingtable-container'>
+                <li>
+                    <table id='sizing-table'></table>
                     <script type="text/template" id="sizingtable-tpl">
                         <td>
                             <label><%= title %>:</label>
@@ -87,6 +88,8 @@
 
     <!-- local javascripts -->
     <script src="models/Item.model.js"></script>
-    <script src="views/logic/measurements.js"></script>
+    <script src="views/Materials.js"></script>
+    <script src="views/Measurements.js"></script>
+    <script src="views/Units.js"></script>
 </body>
 </html>
