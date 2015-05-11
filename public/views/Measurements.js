@@ -14,7 +14,6 @@ var Measurements = Backbone.View.extend({
 
         for (var i = 0; i < meas_units.length; i++) {
             var tpl = _.template( $("#sizingtable-tpl").html() );
-            
             var title = meas_units[i].charAt(0).toUpperCase() + meas_units[i].slice(1);
 
             tpl = tpl({title: title });

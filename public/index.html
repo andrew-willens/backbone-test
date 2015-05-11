@@ -50,11 +50,11 @@
                     <div id="units-container"></div>
                     <script type="text/template" id="unitsdiv-tpl">
                         <div>
-                            <%= title %>:
+                            <%= description %>:
                         </div>
                     </script>
                     <script type="text/template" id="unitsradio-tpl">
-                        <input type="radio"><span class="bottom"><%= unit %>(<%= abbr %>)</span>
+                        <input type="radio"><span class="bottom"><%= unit %> (<%= abbr %>)</span>
                     </script>
                 </li>
             
@@ -90,6 +90,7 @@
     <script src="models/Item.model.js"></script>
     <script src="views/Materials.js"></script>
     <script src="views/Measurements.js"></script>
+    <script src="views/Radio.js"></script>
     <script src="views/Units.js"></script>
 </body>
 </html>
