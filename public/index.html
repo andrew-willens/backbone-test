@@ -52,13 +52,13 @@
         <div>
             Measurements are in:
             <% _.each(units, function(val, key) { %>
-            <input type="radio"><span class="bottom"><%= val %> (<%= key %>)</span>
+            <input type="radio" name="meas-unit" value="<%= key %>"><span class="bottom"><%= val %> (<%= key %>)</span>
             <% }); %>
         </div>
         <div>
             Measured item is:
             <% _.each(shapes, function(val, key) { %>
-            <input type="radio"><span class="bottom"><%= val %></span>
+            <input type="radio" name="meas-shape" value="<%= val %>"><span class="bottom"><%= val %></span>
             <% }); %>
         </div>
     </script>

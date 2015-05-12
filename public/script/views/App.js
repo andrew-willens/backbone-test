@@ -25,8 +25,8 @@ app.Views.App = Backbone.View.extend({
                 materials: enums.get('material'),
                 restricted: item.get('material.restricted') 
             }).el );
-            that.$el.append( new views.Measurements(enums.get('measurement')).el );
-            that.$el.append( new views.Dimensions(item.get('measurement')).el );
+            that.$el.append( new views.Measurements( {model: item, enums: enums.get('measurement')}).el );
+            that.$el.append( new views.Dimensions({model: item}).el );
             that.$el.append( new views.Conditions(enums.get('condition.description')).el );
 
         }).done(function() {
