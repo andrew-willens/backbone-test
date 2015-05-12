@@ -16,10 +16,11 @@
 </head>
 <body>
     <form id="1dbs-form" >
-        <div class="container">
+        <!-- <div id="title-container" class="container"></div> -->
+        <script type="text/template" id="title-tpl">
             <label for="title">Title</label>
-            <input class="title" type="text">        
-        </div>
+            <input class="title" type="text" value="<%= title %>" >
+        </script>
         
         <div class="container">
             <label for="description">Description</label>
@@ -97,5 +98,7 @@
     <script src="views/Measurements.js"></script>
     <script src="views/Units.js"></script>
     <script src="views/Conditions.js"></script>
+    <script src="views/Title.js"></script>
+    <script src="views/App.js"></script>
 </body>
 </html>

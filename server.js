@@ -6,11 +6,11 @@
 
 // modules
 var static = require( 'node-static' ),
-    port = 8080,
-    http = require( 'http' );
+    http   = require( 'http' );
 
 // config
-var file = new static.Server( './public', {
+var port       = 8080,
+    fileServer = new static.Server( './public', {
     cache: 3600,
     gzip: true
 } );
@@ -18,6 +18,9 @@ var file = new static.Server( './public', {
 // serve
 http.createServer( function ( request, response ) {
     request.addListener( 'end', function () {
-        file.serve( request, response );
+        fileServer.serve( request, response );
     } ).resume();
 } ).listen( port );
+
+
+
