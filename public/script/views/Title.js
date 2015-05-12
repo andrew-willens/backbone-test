@@ -1,7 +1,7 @@
-var Title = Backbone.View.extend({
+app.Views.Title = Backbone.View.extend({
     // el: "#title-container",
-    tag: "div",
-    class: "container",
+    tagName: "div",
+    className: "container",
     id: "title-container",
 
     initialize: function(data) {
@@ -14,8 +14,3 @@ var Title = Backbone.View.extend({
         return this;
     }
 });
-
-// $.getJSON("data/item.json", function(data){
-//     var item = new Item(data.result.item);
-//     new Title( {title: item.get('title')} );
-// });

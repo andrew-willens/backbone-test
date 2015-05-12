@@ -8,6 +8,7 @@
     <script src="http://documentcloud.github.com/underscore/underscore-min.js">
     </script>
     <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.ribs/0.2.2/backbone.ribs.min.js"></script>
 
     <!-- styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -16,90 +17,96 @@
 </head>
 <body>
     <div id="form-container"></div>
-    <form id="1dbs-form" >
-        <!-- <div id="title-container" class="container"></div> -->
-        <script type="text/template" id="title-tpl">
-            <label for="title">Title</label>
-            <input class="title" type="text" value="<%= title %>" >
-        </script>
-        
-        <div class="container">
-            <label for="description">Description</label>
-            <textarea class="description" form_id="1dbs-form"></textarea>
-        </div>
-        
-        <div class="container">
-            <label for="internal-notes">Internal Notes</label>
-            <textarea class="internal-notes" form_id="1dbs-form"></textarea>
-        </div>
-        
-        <div class="container">
-            <label for="materials">Materials</label>
-            <select id="materials-container" class="form-control"></select>
-            <script type="text/template" id="materials-tpl">
-                <option><%= option %></option>
-            </script>
-        </div>
-
-        <div class="container">
-            <input type="checkbox">
-            <span class="bottom"><span class="bold">Check this box</span> if the listing contains or may contain restricted materials</span>
-        </div>
-
-        <div class="container">
-            <label for="units-container">Measurements</label>
-            <div id="units-container"></div>
-            
-            <script type="text/template" id="unitsdiv-tpl">
-                <div>
-                    Measurements are in:
-                    <% _.each(units, function(val, key) { %>
-                    <input type="radio"><span class="bottom"><%= val %> (<%= key %>)</span>
-                    <% }); %>
-                </div>
-                <div>
-                    Measured item is:
-                    <% _.each(shapes, function(val, key) { %>
-                    <input type="radio"><span class="bottom"><%= val %></span>
-                    <% }); %>
-                </div>
-            </script>
-        </div>
+    <div class="container">
+        <input class="btn btn-primary" type="submit" value="Save">
+    </div>
     
-        <div class="container">
-            <table id='sizing-table'></table>
-            <script type="text/template" id="sizingtable-tpl">
-                <td>
-                    <label><%= title %>:</label>
-                    <div class="input-group sizing">
-                        <input type="text" class="form-control" >
-                        <div class="input-group-addon">in.</div>
-                    </div>
-                </td>
-            </script>
-        </div>
+    <script type="text/template" id="title-tpl">
+        <label for="title">Title</label>
+        <input class="title" type="text" value="<%= title %>" >
+    </script>
+    
+    <script type="text/template" id="description-tpl">
+        <label for="description">Description</label>
+        <textarea class="description" form_id="1dbs-form"><%= description %></textarea>
+    </script>
 
-        <div class="container">
-            <label for="conditions-container">Condition <span class="unbold italic">( Select One )</span></label>
-            <div id="conditions-container"></div>
-
-            <script type="text/template" id="conditions-tpl" >
-                <input type="radio"><span class="bottom"><%= condition %></span>
-            </script>
+    <script type="text/template" id="internalnotes-tpl">
+        <label for="internal-notes">Internal Notes</label>
+        <textarea class="internal-notes" form_id="1dbs-form"><%= notes %></textarea>
+    </script>
+    
+    <script type="text/template" id="materials-tpl">
+        <label for="materials">Materials</label>
+        <select id="materials" class="form-control">
+            <% _.each(materials, function(val) { %>
+            <option><%= val %></option>
+            <% }); %>
+        </select>
+        <input type="checkbox" <% if (restricted.toUpperCase() !== "N" ) { %> checked <% } %>>
+        <span class="bottom"><span class="bold">Check this box</span> if the listing contains or may contain restricted materials</span>
+    </script>
+        
+    <script type="text/template" id="measurements-tpl">
+        <label for="measurements-container">Measurements</label>
+        <div>
+            Measurements are in:
+            <% _.each(units, function(val, key) { %>
+            <input type="radio"><span class="bottom"><%= val %> (<%= key %>)</span>
+            <% }); %>
         </div>
-
-        <div class="container">
-            <input class="btn btn-primary" type="submit" value="Save">
+        <div>
+            Measured item is:
+            <% _.each(shapes, function(val, key) { %>
+            <input type="radio"><span class="bottom"><%= val %></span>
+            <% }); %>
         </div>
-    </form>
+    </script>
+    
+    <script type="text/template" id="dimensions-tpl">
+        <table class="dimensions-tbl" >
+            <% 
+            var i = 0;
+            _.each(dimensions, function(dim_meas, dim_key){ 
+            if ()
+            %>
+            <td>
+                <label><%= dim_key %>:</label>
+                <div class="input-group sizing">
+                    <input type="text" class="form-control" value="<%= dim_meas %>" >
+                    <div class="input-group-addon"><%= unit %></div>
+                </div>
+            </td>
+            <% 
+            i++;
+            });
+            %>
+        </table>
+    </script>
+
+    <script type="text/template" id="conditions-tpl">
+        <label for="conditions">Condition <span class="unbold italic">( Select One )</span></label>
+        <% _.each(conditions, function(val) { %>  
+        <input type="radio"><span class="bottom"><%= val %></span>
+        <% }) %>
+    </script>
 
     <!-- local javascripts -->
-    <script src="models/Item.model.js"></script>
-    <script src="views/Materials.js"></script>
-    <script src="views/Measurements.js"></script>
-    <script src="views/Units.js"></script>
-    <script src="views/Conditions.js"></script>
-    <script src="views/Title.js"></script>
-    <script src="views/App.js"></script>
+    <script>
+        var app = {
+            Models: {},
+            Views:  {}
+        };
+    </script>
+    <script src="script/data/Models.js"></script>
+    <script src="script/views/Title.js"></script>
+    <script src="script/views/Description.js"></script>
+    <script src="script/views/InternalNotes.js"></script>
+    <script src="script/views/Materials.js"></script>
+    <script src="script/views/Measurements.js"></script>
+    <script src="script/views/Dimensions.js"></script>
+    <script src="script/views/Conditions.js"></script>
+    <script src="script/views/App.js"></script>
+    <script src="script/initiate.js"></script>
 </body>
 </html>

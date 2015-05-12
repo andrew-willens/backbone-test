@@ -55,7 +55,7 @@
     }
 
     /* dimensions */
-    #sizing-table td {
+    .dimensions-table td {
         padding: .5em 2em 0 0;
     }
 
