@@ -10,15 +10,16 @@ app.Views.Dimensions = Backbone.View.extend({
     },
 
     render: function(data) {
-        console.log(data);
         // capitalize
+        data.diameter = "";
         var dimensions = _.object( 
             _.map(data, function(val, key){
-                return [key, val.charAt(0).toUpperCase() + val.slice(1)];
+                return [key.charAt(0).toUpperCase() + key.slice(1), val];
             })
         ),
         unit = dimensions.unit;
-        delete(dimensions.unit);
+        delete dimensions.Unit;
+        delete dimensions.Shape;
 
         this.$el.append( this.template({dimensions: dimensions, unit: unit}));
         return this.el;

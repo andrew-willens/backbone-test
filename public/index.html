@@ -68,8 +68,10 @@
             <% 
             var i = 0;
             _.each(dimensions, function(dim_meas, dim_key){ 
-            if ()
+                if ( (i+1) % 2 !== 0 ) {   
             %>
+            <tr>
+            <% } %>
             <td>
                 <label><%= dim_key %>:</label>
                 <div class="input-group sizing">
@@ -77,8 +79,10 @@
                     <div class="input-group-addon"><%= unit %></div>
                 </div>
             </td>
-            <% 
-            i++;
+            <%  if ( (i+1) % 2 === 0 ) { %>
+            <tr>
+            <%  }
+                i++;
             });
             %>
         </table>
