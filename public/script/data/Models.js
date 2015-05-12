@@ -1,2 +1,2 @@
-app.Models.Enumerable = Backbone.Ribs.Model.extend({});
-app.Models.Item = Backbone.Ribs.Model.extend({});
+app.Models.Enumerable = Backbone.DeepModel.extend({});
+app.Models.Item = Backbone.DeepModel.extend({});

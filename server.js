@@ -4,10 +4,11 @@
  * Serves files and folders from the './public' folder
  */
 
-// modules
+// dependencies
 var static = require( 'node-static' ),
     http   = require( 'http' ),
-    fs     = require( 'fs' );
+    fs     = require( 'fs' )
+    url    = require( 'url' );
 
 // config
 var port       = 8080,

@@ -8,7 +8,7 @@ app.Views.Measurements = Backbone.View.extend({
     },
 
     initialize: function(data) {
-        this.listenTo(this.model, "change", this.renderDimensionFields);
+        this.listenTo(this.model, "change:measurement", this.renderDimensionFields);
         this.template = _.template( $("#measurements-tpl").html() );
         this.render(data.enums);
     },
@@ -29,18 +29,14 @@ app.Views.Measurements = Backbone.View.extend({
         return this.el;
     },
 
-    renderDimensionFields: function() {
-        alert('changed shape');
-    },
-
     setUnit: function() {
         var unit = $("input[name='meas-unit']:checked").val();
-        this.model.set('measurement.unit', unit );
+        this.model.set({'measurement.unit': unit});
     },
 
     setShape: function() {
         var shape = $("input[name='meas-shape']:checked").val();
-        this.model.set({ 'shape': shape.toLowerCase() });
+        this.model.set({ 'measurement.shape': shape.toLowerCase() });
     }
 
 });
