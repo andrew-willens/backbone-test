@@ -13,13 +13,13 @@ app.Views.Title = Backbone.View.extend({
     },
 
     render: function() {
-        this.$el.append( this.template(this.model.get('item.title')) );
+        this.$el.append( this.template({title : this.model.get('item.title')}) );
         return this;
     },
 
     saveChange: function() {   
         console.log(this.model.toJSON());
-        this.model.set({title: this.$el.text().trim()});
-        console.log(this.model.get('item.title'));
+        // this.model.set({title: this.$el.text().trim()});
+        // console.log(this.model.get('item.title'));
     }
 });
