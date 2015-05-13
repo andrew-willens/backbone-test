@@ -3,8 +3,8 @@ app.Views.Measurements = Backbone.View.extend({
     className: "container",
     id: "measurements-container",
     events: {
-        "click input[name=meas-unit]"  : "setUnit",
-        "click input[name=meas-shape]" : "setShape"
+        "click input[name=meas_unit]"  : "setUnit",
+        "click input[name=meas_shape]" : "setShape"
     },
 
     initialize: function(data) {
@@ -30,12 +30,12 @@ app.Views.Measurements = Backbone.View.extend({
     },
 
     setUnit: function() {
-        var unit = $("input[name='meas-unit']:checked").val();
+        var unit = $("input[name='meas_unit']:checked").val();
         this.model.set({'measurement.unit': unit});
     },
 
     setShape: function() {
-        var shape = $("input[name='meas-shape']:checked").val();
+        var shape = $("input[name='meas_shape']:checked").val();
         this.model.set({ 'measurement.shape': shape.toLowerCase() });
     }
 

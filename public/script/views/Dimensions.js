@@ -19,6 +19,7 @@ app.Views.Dimensions = Backbone.View.extend({
         
         delete dimensions.unit;
         delete dimensions.shape;
+        
         // capitalize
         dimensions = _.object( 
             _.map(dimensions, function(val, key){
