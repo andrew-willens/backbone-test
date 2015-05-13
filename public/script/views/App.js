@@ -8,7 +8,6 @@ app.Views.App = Backbone.View.extend({
     events: {
         'submit'  : 'saveItem',
     },
-    enums: {}, //placeholder
 
     initialize: function(data) {
         this.enums = data.enums;
@@ -23,7 +22,7 @@ app.Views.App = Backbone.View.extend({
             //title
             this.$el.append( 
                 new views.Title({
-                    title: this.model.get('item.title')
+                    model: this.model
                 }).el 
             );
             
@@ -76,13 +75,11 @@ app.Views.App = Backbone.View.extend({
     },
 
     itemIsReady: function() {
-        // console.log('item model populated: ', this.model.toJSON());
         this._ready.item = true;
         if (this._ready.item && this._ready.enums) this.render();
     },
 
     enumsAreReady: function() {
-        // console.log('enums model populated: ', this.enums.toJSON());
         this._ready.enums = true;
         if (this._ready.item && this._ready.enums) this.render();
     },
@@ -90,7 +87,7 @@ app.Views.App = Backbone.View.extend({
     saveItem: function(e) {
         e.preventDefault();
         alert('saving item!');
-        console.log(this.$el.serialize()) ; 
+        console.log(this.$el.serialize()); 
         // this.model.save();
     }
 });
