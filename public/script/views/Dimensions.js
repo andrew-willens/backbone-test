@@ -6,8 +6,8 @@ app.Views.Dimensions = Backbone.View.extend({
 
     initialize: function() {
         this.template = _.template( $("#dimensions-tpl").html() );
-        this.listenTo(this.model, "change:measurement.unit", this.alertUnit);
-        this.listenTo(this.model, "change:measurement.shape", this.alertShape);
+        this.listenTo(this.model, "change:measurement.unit", this.changeUnit);
+        this.listenTo(this.model, "change:measurement.shape", this.changeShape);
         this.render();
     },
 
@@ -17,26 +17,27 @@ app.Views.Dimensions = Backbone.View.extend({
             unit = dimensions.unit;
             dimensions.diameter = "";
         
+        delete dimensions.unit;
+        delete dimensions.shape;
         // capitalize
         dimensions = _.object( 
             _.map(dimensions, function(val, key){
                 return [key.charAt(0).toUpperCase() + key.slice(1), val];
             })
         ),
-        delete dimensions.Unit;
-        delete dimensions.Shape;
 
-        this.$el.append( this.template({dimensions: dimensions, unit: unit, disabled: disabled}) );
+        this.$el.append( this.template( {dimensions: dimensions, unit: unit, disabled: disabled} ));
         return this.$el;
     },
 
     changeShape: function() {
-        alert('shape changed');
+        var circular = this.model.get('measurement.shape') === 'circular';
+        $(".sizing input").prop("disabled", circular);
+        $(".circ-dim").prop("disabled", !circular);
     },
 
     changeUnit: function() {
-        alert('unit changed');
-        this.render();
+        $(".input-group-addon").text(this.model.get('measurement.unit'));
     }
 
 });
