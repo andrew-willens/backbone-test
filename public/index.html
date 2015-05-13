@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+`<!DOCTYPE html>
 <html>
 <head>
     <title>Simple Backbone.js Form</title>
@@ -16,102 +16,108 @@
 
 </head>
 <body>
+    <!-- app container -->
     <div id="form-container"></div>
-    <div class="container">
-        <input id="save-btn" class="btn btn-primary" type="submit" value="Save">
-    </div>
-    
-    <script type="text/template" id="title-tpl">
-        <label for="title">Title</label>
-        <input class="title" type="text" name="title" value="<%= title %>" >
-    </script>
-    
-    <script type="text/template" id="description-tpl">
-        <label for="description">Description</label>
-        <textarea class="description" name="description" form_id="1dbs-form"><%= description %></textarea>
-    </script>
 
-    <script type="text/template" id="internalnotes-tpl">
-        <label for="internal-notes">Internal Notes</label>
-        <textarea class="internal-notes" name="internal_notes" form_id="1dbs-form"><%= notes %></textarea>
-    </script>
-    
-    <script type="text/template" id="materials-tpl">
-        <label for="materials">Materials</label>
-        <select id="materials" name="material" class="form-control">
-            <% _.each(materials, function(val) { %>
-            <option><%= val %></option>
-            <% }); %>
-        </select>
-        <input type="checkbox" name="restricted" <% if (restricted.toUpperCase() !== "N" ) { %> checked <% } %>>
-        <span class="bottom"><span class="bold">Check this box</span> if the listing contains or may contain restricted materials</span>
-    </script>
+    <!-- backbone/underscore templates -->
+        <script type="text/template" id="title-tpl">
+            <label for="title">Title</label>
+            <input class="title" type="text" name="title" value="<%= title %>" >
+        </script>
         
-    <script type="text/template" id="measurements-tpl">
-        <label for="measurements-container">Measurements</label>
-        <div>
-            Measurements are in:
-            <% _.each(units, function(val, key) { %>
-            <input type="radio" name="meas_unit" value="<%= key %>"><span class="bottom"><%= val %> (<%= key %>)</span>
-            <% }); %>
-        </div>
-        <div>
-            Measured item is:
-            <% _.each(shapes, function(val, key) { %>
-            <input type="radio" name="meas_shape" value="<%= val %>"><span class="bottom"><%= val %></span>
-            <% }); %>
-        </div>
-    </script>
-    
-    <script type="text/template" id="dimensions-tpl">
-        <table class="dimensions-tbl" >
+        <script type="text/template" id="description-tpl">
+            <label for="description">Description</label>
+            <textarea class="description" name="description" form_id="1dbs-form"><%= description %></textarea>
+        </script>
+
+        <script type="text/template" id="internalnotes-tpl">
+            <label for="internal-notes">Internal Notes</label>
+            <textarea class="internal-notes" name="dealerInternalNotes" form_id="1dbs-form"><%= notes %></textarea>
+        </script>
+        
+        <script type="text/template" id="materials-tpl">
+            <label for="materials">Materials</label>
+            <select id="materials" class="form-control">
+                <% _.each(materials, function(val) { %>
+                <option name="material.description"><%= val %></option>
+                <% }); %>
+            </select>
+            <input type="checkbox" name="material.restricted" value="<%= restricted %>" <% if (restricted.toUpperCase() !== "N" ) { %> checked <% } %>>
+            <span class="bottom"><span class="bold">Check this box</span> if the listing contains or may contain restricted materials</span>
+        </script>
+            
+        <script type="text/template" id="measurements-tpl">
+            <label for="measurements-container">Measurements</label>
+            <div>
+                Measurements are in:
+                <% _.each(units, function(val, key) { %>
+                <input type="radio" name="meas_unit" value="<%= key %>"><span class="bottom"><%= val %> (<%= key %>)</span>
+                <% }); %>
+            </div>
+            <div>
+                Measured item is:
+                <% _.each(shapes, function(val, key) { %>
+                <input type="radio" name="meas_shape" value="<%= val %>"><span class="bottom"><%= val %></span>
+                <% }); %>
+            </div>
+        </script>
+        
+        <script type="text/template" id="dimensions-tpl">
+            <table class="dimensions-tbl" >
+                <% 
+                var i = 0;
+                _.each(dimensions, function(dim_meas, dim_key){ 
+                    if ( (i+1) % 2 !== 0 ) {   
+                %>
+                <tr>
+                <% } %>
+                <td>
+                    <label><%= dim_key %>:</label>
+                    <div class="input-group sizing">
+                        <input type="text" name="measurement.<%= dim_key.toLowerCase() %>" class="form-control<%if (dim_key.toLowerCase() === "diameter"){%> circ-dim<%}%>" value="<%= dim_meas %>" disabled >
+                        <div class="input-group-addon"><%= unit %></div>
+                    </div>
+                </td>
+                <%  if ( (i+1) % 2 === 0 ) { %>
+                <tr>
+                <%  }
+                    i++;
+                });
+                %>
+            </table>
+        </script>
+
+        <script type="text/template" id="conditions-tpl">
+            <label for="conditions">Condition <span class="unbold italic">( Select One )</span></label>
             <% 
             var i = 0;
-            _.each(dimensions, function(dim_meas, dim_key){ 
-                if ( (i+1) % 2 !== 0 ) {   
-            %>
-            <tr>
-            <% } %>
-            <td>
-                <label><%= dim_key %>:</label>
-                <div class="input-group sizing">
-                    <input type="text" name="dimension<%= i+1 %>" class="form-control<%if (dim_key.toLowerCase() === "diameter"){%> circ-dim<%}%>" value="<%= dim_meas %>" disabled >
-                    <div class="input-group-addon"><%= unit %></div>
-                </div>
-            </td>
-            <%  if ( (i+1) % 2 === 0 ) { %>
-            <tr>
-            <%  }
+            _.each(conditions, function(val) { %>  
+            <input type="radio" name="condition.description" value="<%= val %>"><span class="bottom"><%= val %></span>
+            <% 
                 i++;
-            });
+            }) 
             %>
-        </table>
-    </script>
+        </script>
 
-    <script type="text/template" id="conditions-tpl">
-        <label for="conditions">Condition <span class="unbold italic">( Select One )</span></label>
-        <% 
-        var i = 0;
-        _.each(conditions, function(val) { %>  
-        <input type="radio" name="condition<%=i+1%>"><span class="bottom"><%= val %></span>
-        <% 
-            i++;
-        }) 
-        %>
-    </script>
+        <script type="text/template" id="save-tpl" >
+            <input id="save-btn" class="btn btn-primary" type="submit" value="Save">
+        </script>
+    <!-- end templates -->
 
     <!-- local javascripts -->
-    <script src="script/app/scaffold.js"></script>
-    <script src="script/models/Item.js"></script>
-    <script src="script/models/Enumerable.js"></script>
-    <script src="script/views/Title.js"></script>
-    <script src="script/views/Description.js"></script>
-    <script src="script/views/InternalNotes.js"></script>
-    <script src="script/views/Materials.js"></script>
-    <script src="script/views/Measurements.js"></script>
-    <script src="script/views/Dimensions.js"></script>
-    <script src="script/views/Conditions.js"></script>
-    <script src="script/views/App.js"></script>
-    <script src="script/app/initiate.js"></script>
+        <script src="script/app/scaffold.js"></script>
+        <script src="script/models/Item.js"></script>
+        <script src="script/models/Enumerable.js"></script>
+        <script src="script/views/Title.js"></script>
+        <script src="script/views/Description.js"></script>
+        <script src="script/views/InternalNotes.js"></script>
+        <script src="script/views/Materials.js"></script>
+        <script src="script/views/Measurements.js"></script>
+        <script src="script/views/Dimensions.js"></script>
+        <script src="script/views/Conditions.js"></script>
+        <script src="script/views/Save.js"></script>
+        <script src="script/views/App.js"></script>
+        <script src="script/app/initiate.js"></script>
+    <!-- end local scripts -->
 </body>
 </html>

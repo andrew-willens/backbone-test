@@ -5,7 +5,9 @@ app.Views.App = Backbone.View.extend({
         item : false,
         enums: false
     },
-    enums: {}, //placeholder
+    events: {
+        'submit'  : 'saveItem',
+    },
 
     initialize: function(data) {
         this.enums = data.enums;
@@ -63,20 +65,49 @@ app.Views.App = Backbone.View.extend({
                     this.enums.get('itemEnums.condition.description')
                 ).el 
             );
+
+            this.$el.append( 
+                new views.Save().el 
+            );
         // end append form elements
 
+        $('#form-container').empty();
         $('#form-container').html(this.el);
     },
 
     itemIsReady: function() {
-        // console.log('item model populated: ', this.model.toJSON());
         this._ready.item = true;
         if (this._ready.item && this._ready.enums) this.render();
     },
 
     enumsAreReady: function() {
-        // console.log('enums model populated: ', this.enums.toJSON());
         this._ready.enums = true;
         if (this._ready.item && this._ready.enums) this.render();
+    },
+
+    saveItem: function(e) {
+        e.preventDefault();
+        var fields = this.getFields();
+        this.model.save(fields);
+        console.log(this.model.attributes);
+    },
+
+    getFields: function() {
+        var that = this,
+            fields = {},
+            selectors = [
+                "textarea",
+                "input[type='text']",
+                "input[name=condition]:checked",
+                "select option:selected"
+            ].join(", ");
+
+        this.$(selectors).each(function(i, input) {
+            var input = that.$(input);
+            fields["item." + input.attr("name")] = input.val();
+        });
+        if (this.$("input[name=restricted]:checked").length) fields.restricted = "Y";
+  
+        return fields;
     }
 });
