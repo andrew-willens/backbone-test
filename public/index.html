@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+`<!DOCTYPE html>
 <html>
 <head>
     <title>Simple Backbone.js Form</title>
@@ -32,17 +32,17 @@
 
         <script type="text/template" id="internalnotes-tpl">
             <label for="internal-notes">Internal Notes</label>
-            <textarea class="internal-notes" name="internal_notes" form_id="1dbs-form"><%= notes %></textarea>
+            <textarea class="internal-notes" name="dealerInternalNotes" form_id="1dbs-form"><%= notes %></textarea>
         </script>
         
         <script type="text/template" id="materials-tpl">
             <label for="materials">Materials</label>
-            <select id="materials" name="material" class="form-control">
+            <select id="materials" class="form-control">
                 <% _.each(materials, function(val) { %>
-                <option><%= val %></option>
+                <option name="material.description"><%= val %></option>
                 <% }); %>
             </select>
-            <input type="checkbox" name="restricted" <% if (restricted.toUpperCase() !== "N" ) { %> checked <% } %>>
+            <input type="checkbox" name="material.restricted" value="<%= restricted %>" <% if (restricted.toUpperCase() !== "N" ) { %> checked <% } %>>
             <span class="bottom"><span class="bold">Check this box</span> if the listing contains or may contain restricted materials</span>
         </script>
             
@@ -74,7 +74,7 @@
                 <td>
                     <label><%= dim_key %>:</label>
                     <div class="input-group sizing">
-                        <input type="text" name="dimension<%= i+1 %>" class="form-control<%if (dim_key.toLowerCase() === "diameter"){%> circ-dim<%}%>" value="<%= dim_meas %>" disabled >
+                        <input type="text" name="measurement.<%= dim_key.toLowerCase() %>" class="form-control<%if (dim_key.toLowerCase() === "diameter"){%> circ-dim<%}%>" value="<%= dim_meas %>" disabled >
                         <div class="input-group-addon"><%= unit %></div>
                     </div>
                 </td>
@@ -92,7 +92,7 @@
             <% 
             var i = 0;
             _.each(conditions, function(val) { %>  
-            <input type="radio" name="condition<%=i+1%>"><span class="bottom"><%= val %></span>
+            <input type="radio" name="condition.description" value="<%= val %>"><span class="bottom"><%= val %></span>
             <% 
                 i++;
             }) 

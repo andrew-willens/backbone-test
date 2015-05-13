@@ -7,13 +7,18 @@ app.Views.Title = Backbone.View.extend({
         "change input" : "saveChange"
     },
 
-    initialize: function() {
+    initialize: function(data) {
         this.template = _.template( $("#title-tpl").html() );
-        this.render();
+        this.render(data.title);
     },
 
-    render: function() {
-        this.$el.append( this.template({title : this.model.get('item.title')}) );
+    render: function(data) {
+        this.$el.append( 
+            this.template({
+                title: data
+            }) 
+        );
+
         return this;
     },
 

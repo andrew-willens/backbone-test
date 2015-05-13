@@ -22,7 +22,7 @@ app.Views.App = Backbone.View.extend({
             //title
             this.$el.append( 
                 new views.Title({
-                    model: this.model
+                    title: this.model.get('item.title')
                 }).el 
             );
             
@@ -71,6 +71,7 @@ app.Views.App = Backbone.View.extend({
             );
         // end append form elements
 
+        $('#form-container').empty();
         $('#form-container').html(this.el);
     },
 
@@ -86,8 +87,27 @@ app.Views.App = Backbone.View.extend({
 
     saveItem: function(e) {
         e.preventDefault();
-        alert('saving item!');
-        console.log(this.$el.serialize()); 
-        // this.model.save();
+        var fields = this.getFields();
+        this.model.save(fields);
+        console.log(this.model.attributes);
+    },
+
+    getFields: function() {
+        var that = this,
+            fields = {},
+            selectors = [
+                "textarea",
+                "input[type='text']",
+                "input[name=condition]:checked",
+                "select option:selected"
+            ].join(", ");
+
+        this.$(selectors).each(function(i, input) {
+            var input = that.$(input);
+            fields["item." + input.attr("name")] = input.val();
+        });
+        if (this.$("input[name=restricted]:checked").length) fields.restricted = "Y";
+  
+        return fields;
     }
 });
