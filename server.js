@@ -9,8 +9,7 @@ var static = require( 'node-static' ),
     http   = require( 'http' ),
     fs     = require( 'fs' ),
     url    = require( 'url' ),
-    qs     = require( 'querystring' ),
-    op     = require( 'object-path' );
+    qs     = require( 'querystring' );
 
 // config
 var port       = 8080,

@@ -5,6 +5,9 @@ app.Views.App = Backbone.View.extend({
         item : false,
         enums: false
     },
+    events: {
+        'submit'  : 'saveItem',
+    },
     enums: {}, //placeholder
 
     initialize: function(data) {
@@ -63,6 +66,10 @@ app.Views.App = Backbone.View.extend({
                     this.enums.get('itemEnums.condition.description')
                 ).el 
             );
+
+            this.$el.append( 
+                new views.Save().el 
+            );
         // end append form elements
 
         $('#form-container').html(this.el);
@@ -78,5 +85,12 @@ app.Views.App = Backbone.View.extend({
         // console.log('enums model populated: ', this.enums.toJSON());
         this._ready.enums = true;
         if (this._ready.item && this._ready.enums) this.render();
+    },
+
+    saveItem: function(e) {
+        e.preventDefault();
+        alert('saving item!');
+        console.log(this.$el.serialize()) ; 
+        // this.model.save();
     }
 });
