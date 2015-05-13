@@ -12,7 +12,7 @@ app.Views.Dimensions = Backbone.View.extend({
     },
 
     render: function() {
-        var dimensions = this.model.get('measurement'),
+        var dimensions = this.model.get('item.measurement'),
             disabled = dimensions.shape === "" ? true : false,
             unit = dimensions.unit;
             dimensions.diameter = "";

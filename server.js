@@ -9,7 +9,8 @@ var static = require( 'node-static' ),
     http   = require( 'http' ),
     fs     = require( 'fs' ),
     url    = require( 'url' ),
-    qs     = require( 'querystring' );
+    qs     = require( 'querystring' ),
+    op     = require( 'object-path' );
 
 // config
 var port       = 8080,
@@ -20,62 +21,75 @@ var port       = 8080,
 
 // serve
 http.createServer( function ( req, res ) {
-    var reqNote = req.method + " request " + new Date() + " : " + req.url + "\n";
-    fs.appendFile('requestLog.txt', reqNote);
-
+    // console.log(req.url);
     switch (req.url) {
         case "/save":
-            saveItem(req, res);
+            convenience.saveItem(req, res);
             break;
 
         case "/enums":
-            getEnums();
+            convenience.getEnums(req, res);
             break;
 
         case "/item":
-            getItem(req,res);
+            convenience.getItem(req,res);
             break;
 
         default: 
-            req.addListener( 'end', function () {
-                fileServer.serve( req, res );
-            }).resume();
+            convenience.getFile(req, res);
             break;
     }
 
 }).listen( port );
 
-function getItem(req, res) {
+// router functions (emulates database calls)
+var convenience = {
+    getFile: function(req, res) {
+        console.log('getting ' + req.url);
+        req.addListener( 'end', function () {
+            fileServer.serve( req, res );
+        }).resume();  
+    },
 
-}
+    getItem: function(req, res) {
+        console.log('getting item');
+        var item = fs.readFileSync('./mock-db/item.json').toString();
+        this.respond(item, req, res);
+    },
 
-function saveItem(req, res) {
-    req.on('data', function(query) {
-        var currentItem = JSON.parse( 
-            fs.readFileSync('./mock-db/item.json').toString() 
-        );
-        var urlObj = qs.parse( query.toString() );
+    getEnums: function(req, res) {
+        console.log("saving item");
+        var enums = fs.readFileSync('./mock-db/enums.json').toString();
+        this.respond(enums, req, res);
+    },
 
-        for (var param in urlObj) {
-            currentItem[param] = urlObj[param];
-        }
+    saveItem: function(req, res) {
+        console.log('saving item');
+        req.on('data', function(query) {
+            var urlObj = qs.parse( query.toString() );
+            var currentItem = JSON.parse( 
+                fs.readFileSync('./mock-db/item.json').toString()
+            );
 
-        // save updated item
-        fs.writeFileSync('./mock-db/item.json', JSON.stringify(currentItem) );
-
-        // send updated item to client
-        var body = fs.readFileSync('./mock-db/item.json').toString();
-        
-        res.writeHead(
-            200,
-            {
-                'Content-Length': body.length,
-                'Content-Type': 'application/json'
+            for (var param in urlObj) {
+                console.log(param +": "+ urlObj[params]);
+                currentItem[param] = urlObj[param];
             }
-        );
+
+            // save updated item
+            fs.writeFileSync('./mock-db/item.json', JSON.stringify(currentItem) );
+
+            // send updated item to client
+            var body = fs.readFileSync('./mock-db/item.json').toString();
+            this.respond(body, req, res);
+        });
+    },
+
+    respond: function(body, req, res) {
+        res.writeHead(200,{'Content-Length': body.length, 'Content-Type': 'application/json'});
         res.write(body);
         res.end();
-    });
+    }
 }
 
 

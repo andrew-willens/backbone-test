@@ -8,7 +8,7 @@
     <script src="http://documentcloud.github.com/underscore/underscore-min.js">
     </script>
     <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
-    <script src="script/vendor/deep-model.min.js"></script>
+    <script src="assets/vendor/deep-model.min.js"></script>
 
     <!-- styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -101,13 +101,9 @@
     </script>
 
     <!-- local javascripts -->
-    <script>
-        var app = {
-            Models: {},
-            Views:  {}
-        };
-    </script>
-    <script src="script/data/Models.js"></script>
+    <script src="script/app/scaffold.js"></script>
+    <script src="script/models/Item.js"></script>
+    <script src="script/models/Enumerable.js"></script>
     <script src="script/views/Title.js"></script>
     <script src="script/views/Description.js"></script>
     <script src="script/views/InternalNotes.js"></script>
@@ -116,6 +112,6 @@
     <script src="script/views/Dimensions.js"></script>
     <script src="script/views/Conditions.js"></script>
     <script src="script/views/App.js"></script>
-    <script src="script/initiate.js"></script>
+    <script src="script/app/initiate.js"></script>
 </body>
 </html>

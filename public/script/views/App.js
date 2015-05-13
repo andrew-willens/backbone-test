@@ -1,36 +1,82 @@
 app.Views.App = Backbone.View.extend({
-    tagName: 'form',
-    id: '1stdibs-form',
+    tagName : 'form',
+    id      : '1stdibs-form',
+    _ready   : {
+        item : false,
+        enums: false
+    },
+    enums: {}, //placeholder
 
-    initialize: function() {
-        this.render();
+    initialize: function(data) {
+        this.enums = data.enums;
+        this.listenTo(this.model, "sync", this.itemIsReady);
+        this.listenTo(this.enums, "sync", this.enumsAreReady);
     },
 
     render: function() {
-        var that = this,
-            enums;
+        var views = app.Views; 
 
-        $.getJSON("script/data/enums.json", function(data) {
-            enums = new app.Models.Enumerable(data.itemEnums);
-        });
+        // append form elements to this.$el
+            //title
+            this.$el.append( 
+                new views.Title({
+                    title: this.model.get('item.title')
+                }).el 
+            );
+            
+            // description
+            this.$el.append( 
+                new views.Description({
+                    description: this.model.get('item.description')
+                }).el 
+            );
+            
+            // internal notes
+            this.$el.append( 
+                new views.InternalNotes({
+                    notes: this.model.get('item.dealerInternalNotes')
+                }).el 
+            );
+            
+            this.$el.append( 
+                new views.Materials({
+                    materials: this.enums.get('itemEnums.material'),
+                    restricted: this.model.get('item.material.restricted') 
+                }).el 
+            );
+            
+            this.$el.append( 
+                new views.Measurements({
+                    model: this.model, 
+                    enums: this.enums.get('itemEnums.measurement')
+                }).el 
+            );
+            
+            this.$el.append( 
+                new views.Dimensions({
+                    model: this.model
+                }).el 
+            );
+            
+            this.$el.append( 
+                new views.Conditions(
+                    this.enums.get('itemEnums.condition.description')
+                ).el 
+            );
+        // end append form elements
 
-        $.getJSON("script/data/item.json", function(data) {            
-            var item  = new app.Models.Item(data.result.item),
-                views = app.Views; 
-                       
-            that.$el.append( new views.Title({title: item.get('title')}).el );
-            that.$el.append( new views.Description({description: item.get('description')}).el );
-            that.$el.append( new views.InternalNotes({notes: item.get('dealerInternalNotes')}).el );
-            that.$el.append( new views.Materials({
-                materials: enums.get('material'),
-                restricted: item.get('material.restricted') 
-            }).el );
-            that.$el.append( new views.Measurements( {model: item, enums: enums.get('measurement')}).el );
-            that.$el.append( new views.Dimensions({model: item}).el );
-            that.$el.append( new views.Conditions(enums.get('condition.description')).el );
+        $('#form-container').html(this.el);
+    },
 
-        }).done(function() {
-            $('#form-container').html(that.el);
-        });
+    itemIsReady: function() {
+        // console.log('item model populated: ', this.model.toJSON());
+        this._ready.item = true;
+        if (this._ready.item && this._ready.enums) this.render();
+    },
+
+    enumsAreReady: function() {
+        // console.log('enums model populated: ', this.enums.toJSON());
+        this._ready.enums = true;
+        if (this._ready.item && this._ready.enums) this.render();
     }
 });
