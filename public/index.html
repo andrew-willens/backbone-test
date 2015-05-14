@@ -1,4 +1,4 @@
-`<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Simple Backbone.js Form</title>
@@ -17,9 +17,12 @@
 </head>
 <body>
     <!-- app container -->
-    <div id="form-container"></div>
 
     <!-- backbone/underscore templates -->
+        <script type="text/template" id="form-tpl">
+            <div id="title-container"></div>
+        </script>
+
         <script type="text/template" id="title-tpl">
             <label for="title">Title</label>
             <input class="title" type="text" name="title" value="<%= title %>" >

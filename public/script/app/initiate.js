@@ -1,6 +1,7 @@
 $(document).ready(function(){
     app.start();           
     
+    // save form content to server
     // $("#save-btn").on("click", function() {      
     //     $("#1stdibs-form").submit(function(e) {
     //         e.preventDefault();

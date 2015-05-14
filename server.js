@@ -20,7 +20,6 @@ var port       = 8080,
 
 // serve
 http.createServer( function ( req, res ) {
-    // console.log(req.url);
     switch (req.url) {
         case "/save":
             convenience.saveItem(req, res);
@@ -34,7 +33,7 @@ http.createServer( function ( req, res ) {
             convenience.getItem(req,res);
             break;
 
-        default: 
+        default:
             convenience.getFile(req, res);
             break;
     }
@@ -44,20 +43,20 @@ http.createServer( function ( req, res ) {
 // router functions (emulates database calls)
 var convenience = {
     getFile: function(req, res) {
-        console.log('getting ' + req.url);
+        // console.log('getting ' + req.url);
         req.addListener( 'end', function () {
             fileServer.serve( req, res );
         }).resume();  
     },
 
     getItem: function(req, res) {
-        console.log('getting item');
+        // console.log('getting item');
         var item = fs.readFileSync('./mock-db/item.json').toString();
         this.respond(item, req, res);
     },
 
     getEnums: function(req, res) {
-        console.log("saving item");
+        // console.log("getting enums");
         var enums = fs.readFileSync('./mock-db/enums.json').toString();
         this.respond(enums, req, res);
     },

@@ -1,4 +1,5 @@
 app.Views.App = Backbone.View.extend({
+    
     tagName : 'form',
     id      : '1stdibs-form',
     _ready   : {
@@ -8,15 +9,26 @@ app.Views.App = Backbone.View.extend({
     events: {
         'submit'  : 'saveItem',
     },
+    views: {},
 
-    initialize: function(data) {
-        this.enums = data.enums;
+    initialize: function() {
+        this.template = _.template( $("#form-tpl").html() );
         this.listenTo(this.model, "sync", this.itemIsReady);
-        this.listenTo(this.enums, "sync", this.enumsAreReady);
+        this.listenTo(this.options.enums, "sync", this.enumsAreReady);
     },
 
     render: function() {
-        var views = app.Views; 
+        var views = app.Views;
+
+        var title = new this.views.Title({
+                        title: this.model.get('item.title')
+                    });
+
+        console.log(title.options);
+
+        this.$el.html( this.template() );
+        title.setElement( $("#title-container") ).render();
+
 
         // append form elements to this.$el
             //title
@@ -42,7 +54,7 @@ app.Views.App = Backbone.View.extend({
             
             this.$el.append( 
                 new views.Materials({
-                    materials: this.enums.get('itemEnums.material'),
+                    materials: this.options.enums.get('itemEnums.material'),
                     restricted: this.model.get('item.material.restricted') 
                 }).el 
             );
@@ -50,7 +62,7 @@ app.Views.App = Backbone.View.extend({
             this.$el.append( 
                 new views.Measurements({
                     model: this.model, 
-                    enums: this.enums.get('itemEnums.measurement')
+                    enums: this.options.enums.get('itemEnums.measurement')
                 }).el 
             );
             
@@ -62,7 +74,7 @@ app.Views.App = Backbone.View.extend({
             
             this.$el.append( 
                 new views.Conditions(
-                    this.enums.get('itemEnums.condition.description')
+                    this.options.enums.get('itemEnums.condition.description')
                 ).el 
             );
 
@@ -70,25 +82,38 @@ app.Views.App = Backbone.View.extend({
                 new views.Save().el 
             );
         // end append form elements
+    },
 
-        $('#form-container').empty();
-        $('#form-container').html(this.el);
+    setViews: function(views) {
+        for (var view in views) {
+            this.views[view] = views[view];
+        }
     },
 
     itemIsReady: function() {
         this._ready.item = true;
-        if (this._ready.item && this._ready.enums) this.render();
+        if (this._ready.item && this._ready.enums) {
+            this.setViews(this.options.views);
+            this.render();
+        }
     },
 
     enumsAreReady: function() {
         this._ready.enums = true;
-        if (this._ready.item && this._ready.enums) this.render();
+        if (this._ready.item && this._ready.enums) {
+            this.setViews(this.options.views);
+            this.render();
+        }
     },
 
     saveItem: function(e) {
         e.preventDefault();
-        var fields = this.getFields();
-        this.model.save(fields);
+
+        this.model.set(this.getFields());
+        
+        // if we were actually persisting the data
+        // this.model.save(); ...
+
         console.log(this.model.attributes);
     },
 
