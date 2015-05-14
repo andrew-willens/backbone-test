@@ -80,14 +80,25 @@ app.Views.Form = Backbone.View.extend({
             selectors = [
                 "textarea",
                 "input[type='text']",
-                "input[name=condition]:checked",
+                "input[name='condition.description']:checked",
                 "select option:selected"
             ].join(", ");
 
         this.$(selectors).each(function(i, input) {
             var input = that.$(input);
-            // console.log("item." + input.attr("name") )
-            fields["item." + input.attr("name")] = input.val();
+
+            if ( input.is(":disabled") ) {
+                fields["item." + input.attr("name")] = "";
+            } 
+            else if (
+                input.attr('name') === 'measurement.diameter' 
+                &&
+                input.is(":disabled")    
+            ) {
+                fields["item.measurement.diameter"] = "";
+            } else {
+                fields["item." + input.attr("name")] = input.val();
+            }
         });
         
         if (this.$("input[name='restricted']:checked").length) {

@@ -9,7 +9,6 @@ app.Views.Measurements = Backbone.View.extend({
     initialize: function() {
         this.model = app.Models.Item;
         this.options.enums = app.Models.Enumerable;
-        this.model.bind("change:item.measurement", this.renderDimensionFields);
         this.template = _.template( $("#measurements-tpl").html() );
     },
 
@@ -27,10 +26,6 @@ app.Views.Measurements = Backbone.View.extend({
 
         this.$el.append( this.template({shapes: shapes, units: units}) );
         return this.el;
-    },
-
-    renderDimensionFields: function() {
-        alert();
     },
 
     setUnit: function() {

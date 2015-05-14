@@ -7,8 +7,8 @@ app.Views.Dimensions = Backbone.View.extend({
     initialize: function() {
         this.model = app.Models.Item;
         this.template = _.template( $("#dimensions-tpl").html() );
-        this.listenTo(this.model, "change:measurement.unit", this.changeUnit);
-        this.listenTo(this.model, "change:measurement.shape", this.changeShape);
+        this.listenTo(this.model, "change:item.measurement.unit", this.changeUnit);
+        this.listenTo(this.model, "change:item.measurement.shape", this.changeShape);
     },
 
     render: function() {
@@ -33,13 +33,13 @@ app.Views.Dimensions = Backbone.View.extend({
     },
 
     changeShape: function() {
-        var circular = this.model.get('measurement.shape') === 'circular';
+        var circular = this.model.get('item.measurement.shape') === 'circular';
         $(".sizing input").prop("disabled", circular);
         $(".circ-dim").prop("disabled", !circular);
     },
 
     changeUnit: function() {
-        $(".input-group-addon").text(this.model.get('measurement.unit'));
+        $(".input-group-addon").text(this.model.get('item.measurement.unit'));
     }
 
 });
