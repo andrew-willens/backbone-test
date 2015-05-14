@@ -31,12 +31,12 @@ app.Views.Measurements = Backbone.View.extend({
 
     setUnit: function() {
         var unit = $("input[name='meas_unit']:checked").val();
-        this.model.set({'measurement.unit': unit});
+        this.model.set({'item.measurement.unit': unit});
     },
 
     setShape: function() {
         var shape = $("input[name='meas_shape']:checked").val();
-        this.model.set({ 'measurement.shape': shape.toLowerCase() });
+        this.model.set({ 'item.measurement.shape': shape.toLowerCase() });
     }
 
 });

@@ -85,9 +85,13 @@ app.Views.Form = Backbone.View.extend({
 
         this.$(selectors).each(function(i, input) {
             var input = that.$(input);
+            // console.log("item." + input.attr("name") )
             fields["item." + input.attr("name")] = input.val();
         });
-        if (this.$("input[name=restricted]:checked").length) fields.restricted = "Y";
+        
+        if (this.$("input[name='restricted']:checked").length) {
+            fields['item.material.restricted'] = "Y";
+        }
   
         return fields;
     }

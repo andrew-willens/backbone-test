@@ -19,14 +19,16 @@
     <!-- app container -->
     <div id="form-container">
         <script type="text/template" id="form-tpl">
-            <div id="title-container" class="container" ></div>
-            <div id="description-container" class="container" ></div>
-            <div id="internalnotes-container" class="container" ></div>
-            <div id="materials-container" class="container" ></div>
-            <div id="measurements-container" class="container" ></div>
-            <div id="dimensions-container" class="container" ></div>
-            <div id="conditions-container" class="container" ></div>
-            <div id="save-container" class="container" ></div>
+            <form>
+                <div id="title-container" class="container" ></div>
+                <div id="description-container" class="container" ></div>
+                <div id="internalnotes-container" class="container" ></div>
+                <div id="materials-container" class="container" ></div>
+                <div id="measurements-container" class="container" ></div>
+                <div id="dimensions-container" class="container" ></div>
+                <div id="conditions-container" class="container" ></div>
+                <div id="save-container" class="container" ></div>
+            </form>
         </script>
     </div>
 
@@ -53,7 +55,7 @@
                 <option name="material.description"><%= val %></option>
                 <% }); %>
             </select>
-            <input type="checkbox" name="material.restricted" value="<%= restricted %>" <% if (restricted.toUpperCase() !== "N" ) { %> checked <% } %>>
+            <input type="checkbox" name="restricted" value="<%= restricted %>" <% if (restricted.toUpperCase() !== "N" ) { %> checked <% } %>>
             <span class="bottom"><span class="bold">Check this box</span> if the listing contains or may contain restricted materials</span>
         </script>
             
