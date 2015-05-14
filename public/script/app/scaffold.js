@@ -2,9 +2,9 @@ var app = {
     Models: {},
     Views:  {},
     start: function() {
-        var enums = new app.Models.Enumerable({});
-            item  = new app.Models.Item({}),
+        this.Models.Enumerable = new this.Models.Enumerable({});
+        this.Models.Item       = new this.Models.Item({}),
 
-        new app.Views.App({model: item, enums: enums, views: this.Views});    
+        this.Views.App = new this.Views.App({model: this.Models.Item, enums: this.Models.Enumerable, views: this.Views});    
     }
 }

@@ -1,16 +1,18 @@
 app.Views.Conditions = Backbone.View.extend({
-    
-    tagName: "div",
-    className: "container",
-    id: "conditions-container",
 
-    initialize: function(data) {
+    el: "#conditions-container",
+
+    initialize: function() {
+        this.model = app.Models.Enumerable;
         this.template = _.template( $("#conditions-tpl").html() );
-        this.render(data);
     },
 
-    render: function(data) {
-        this.$el.append( this.template({conditions: data }) );
+    render: function() {
+        this.$el.append( 
+            this.template({
+                conditions: this.model.get('itemEnums.condition.description') 
+            }) 
+        );
         return this;
     }
 });

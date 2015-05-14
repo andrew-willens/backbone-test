@@ -1,18 +1,15 @@
 app.Views.Title = Backbone.View.extend({
     el: "#title-container",
-    // tagName: "div",
-    // className: "container",
-    // id: "title-container",
 
-    initialize: function(data) {
+    initialize: function() {
+        this.model    = app.Models.Item;
         this.template = _.template( $("#title-tpl").html() );
-        this.render(data.title);
     },
 
-    render: function(data) {
+    render: function() {
         this.$el.append( 
             this.template({
-                title: data
+                title: this.model.get('item.title')
             }) 
         );
 

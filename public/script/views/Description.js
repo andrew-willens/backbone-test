@@ -1,15 +1,18 @@
 app.Views.Description = Backbone.View.extend({
-    tagName: "div",
-    className: "container",
-    id: "description-container",
 
-    initialize: function(data) {
+    el: "#description-container",
+
+    initialize: function() {
+        this.model = app.Models.Item;
         this.template = _.template( $("#description-tpl").html() );
-        this.render(data);
     },
 
-    render: function(data) {
-        this.$el.append( this.template(data) );
+    render: function() {
+        this.$el.append( 
+            this.template(
+                {description: this.model.get('item.description')}
+            ) 
+        );
         return this;
     }
 });

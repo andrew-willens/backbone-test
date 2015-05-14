@@ -1,21 +1,20 @@
 app.Views.Measurements = Backbone.View.extend({
-    tagName: 'div',
-    className: "container",
-    id: "measurements-container",
+
+    el: "#measurements-container",
     events: {
         "click input[name=meas_unit]"  : "setUnit",
         "click input[name=meas_shape]" : "setShape"
     },
 
-    initialize: function(data) {
+    initialize: function() {
+        this.model = app.Models.Item;
         this.listenTo(this.model, "change:measurement", this.renderDimensionFields);
         this.template = _.template( $("#measurements-tpl").html() );
-        this.render(data.enums);
     },
 
-    render: function(data) {
-        var units      = data.unit,
-            shapes     = data.shape,
+    render: function() {
+        var units      = this.options.enums.get('itemEnums.measurement.unit'),
+            shapes     = this.options.enums.get('itemEnums.measurement.shape'),
             str        = "";
     
         // capitalize

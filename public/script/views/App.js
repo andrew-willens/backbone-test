@@ -1,7 +1,6 @@
 app.Views.App = Backbone.View.extend({
     
-    tagName : 'form',
-    id      : '1stdibs-form',
+    el: "#form-container",
     _ready   : {
         item : false,
         enums: false
@@ -12,76 +11,37 @@ app.Views.App = Backbone.View.extend({
     views: {},
 
     initialize: function() {
-        this.template = _.template( $("#form-tpl").html() );
+        this.template = _.template( this.$("#form-tpl").html() );
         this.listenTo(this.model, "sync", this.itemIsReady);
         this.listenTo(this.options.enums, "sync", this.enumsAreReady);
     },
 
     render: function() {
-        var views = app.Views;
-
-        var title = new this.views.Title({
-                        title: this.model.get('item.title')
-                    });
-
-        console.log(title.options);
-
         this.$el.html( this.template() );
-        title.setElement( $("#title-container") ).render();
+        
+        this.views.Title         = new this.views.Title();
+        this.views.Description   = new this.views.Description();
+        this.views.InternalNotes = new this.views.InternalNotes();
+        this.views.Materials     = new this.views.Materials({enums: app.Models.Enumerable});
+        this.views.Measurements  = new this.views.Measurements({enums: app.Models.Enumerable});
+        this.views.Dimensions    = new this.views.Dimensions();
+        this.views.Conditions    = new this.views.Conditions();
+        this.views.Save          = new this.views.Save();
 
+        this.assignView(this.views.Title, "#title-container");
+        this.assignView(this.views.Description, "#description-container");
+        this.assignView(this.views.InternalNotes, "#internalnotes-container");
+        this.assignView(this.views.Materials, "#materials-container");
+        this.assignView(this.views.Measurements, "#measurements-container");
+        this.assignView(this.views.Dimensions, "#dimensions-container");
+        this.assignView(this.views.Conditions, "#conditions-container");
+        this.assignView(this.views.Save, "#save-container");
 
-        // append form elements to this.$el
-            //title
-            this.$el.append( 
-                new views.Title({
-                    title: this.model.get('item.title')
-                }).el 
-            );
-            
-            // description
-            this.$el.append( 
-                new views.Description({
-                    description: this.model.get('item.description')
-                }).el 
-            );
-            
-            // internal notes
-            this.$el.append( 
-                new views.InternalNotes({
-                    notes: this.model.get('item.dealerInternalNotes')
-                }).el 
-            );
-            
-            this.$el.append( 
-                new views.Materials({
-                    materials: this.options.enums.get('itemEnums.material'),
-                    restricted: this.model.get('item.material.restricted') 
-                }).el 
-            );
-            
-            this.$el.append( 
-                new views.Measurements({
-                    model: this.model, 
-                    enums: this.options.enums.get('itemEnums.measurement')
-                }).el 
-            );
-            
-            this.$el.append( 
-                new views.Dimensions({
-                    model: this.model
-                }).el 
-            );
-            
-            this.$el.append( 
-                new views.Conditions(
-                    this.options.enums.get('itemEnums.condition.description')
-                ).el 
-            );
+        return this;
+    },
 
-            this.$el.append( 
-                new views.Save().el 
-            );
-        // end append form elements
+    assignView: function(view, selector) {
+        view.setElement( this.$(selector) ).render();
     },
 
     setViews: function(views) {
@@ -110,11 +70,12 @@ app.Views.App = Backbone.View.extend({
         e.preventDefault();
 
         this.model.set(this.getFields());
+
+        // "save"
+        console.log(this.model.attributes);
         
         // if we were actually persisting the data
         // this.model.save(); ...
-
-        console.log(this.model.attributes);
     },
 
     getFields: function() {

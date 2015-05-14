@@ -1,16 +1,18 @@
 app.Views.Materials = Backbone.View.extend({
-    // el: "#materials-container",
-    tagName: 'div',
-    className: "container",
-    id: "materials-container",
+    el: "#materials-container",
 
-    initialize: function(data) {
+    initialize: function() {
+        this.model = app.Models.Item;
         this.template = _.template( $("#materials-tpl").html() );
-        this.render(data);
     },
 
-    render: function(data) {
-        this.$el.append(this.template({materials: data.materials, restricted: data.restricted}));
+    render: function() {
+        this.$el.append(
+            this.template({
+                materials: this.options.enums.get('itemEnums.material'), 
+                restricted: this.model.get('item.material.restricted')
+            })
+        );
         return this;
     }
 });

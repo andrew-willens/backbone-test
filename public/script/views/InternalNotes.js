@@ -1,16 +1,18 @@
 app.Views.InternalNotes = Backbone.View.extend({
 
-    tagName: "div",
-    className: "container",
-    id: "internalnotes-container",
+    el: "#internalnotes-container",
 
-    initialize: function(data) {
+    initialize: function() {
+        this.model = app.Models.Item;
         this.template = _.template( $("#internalnotes-tpl").html() );
-        this.render(data);
     },
 
-    render: function(data) {
-        this.$el.append( this.template(data) );
+    render: function() {
+        this.$el.append( 
+            this.template({
+                notes: this.model.get('item.dealerInternalNotes')
+            }) 
+        );
         return this;
     }
 

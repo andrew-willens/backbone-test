@@ -17,17 +17,25 @@
 </head>
 <body>
     <!-- app container -->
-
-    <!-- backbone/underscore templates -->
+    <div id="form-container">
         <script type="text/template" id="form-tpl">
-            <div id="title-container"></div>
+            <div id="title-container" class="container" ></div>
+            <div id="description-container" class="container" ></div>
+            <div id="internalnotes-container" class="container" ></div>
+            <div id="materials-container" class="container" ></div>
+            <div id="measurements-container" class="container" ></div>
+            <div id="dimensions-container" class="container" ></div>
+            <div id="conditions-container" class="container" ></div>
+            <div id="save-container" class="container" ></div>
         </script>
+    </div>
 
+    <!-- templates -->
         <script type="text/template" id="title-tpl">
             <label for="title">Title</label>
             <input class="title" type="text" name="title" value="<%= title %>" >
         </script>
-        
+
         <script type="text/template" id="description-tpl">
             <label for="description">Description</label>
             <textarea class="description" name="description" form_id="1dbs-form"><%= description %></textarea>

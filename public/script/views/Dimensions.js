@@ -5,10 +5,10 @@ app.Views.Dimensions = Backbone.View.extend({
     id: "dimensions-container",
 
     initialize: function() {
+        this.model = app.Models.Item;
         this.template = _.template( $("#dimensions-tpl").html() );
         this.listenTo(this.model, "change:measurement.unit", this.changeUnit);
         this.listenTo(this.model, "change:measurement.shape", this.changeShape);
-        this.render();
     },
 
     render: function() {
@@ -23,6 +23,7 @@ app.Views.Dimensions = Backbone.View.extend({
         // capitalize
         dimensions = _.object( 
             _.map(dimensions, function(val, key){
+                //capitalize
                 return [key.charAt(0).toUpperCase() + key.slice(1), val];
             })
         ),
