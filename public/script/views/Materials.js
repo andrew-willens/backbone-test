@@ -3,6 +3,7 @@ app.Views.Materials = Backbone.View.extend({
 
     initialize: function() {
         this.model = app.Models.Item;
+        this.options.enums = app.Models.Enumerable;
         this.template = _.template( $("#materials-tpl").html() );
     },
 
