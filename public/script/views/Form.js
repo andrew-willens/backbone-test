@@ -64,6 +64,7 @@ app.Views.Form = Backbone.View.extend({
     saveItem: function(e) {
         e.preventDefault();
 
+        // update state
         this.model.set(this.getFields());
 
         // "save"

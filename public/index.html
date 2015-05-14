@@ -3,36 +3,39 @@
 <head>
     <title>Simple Backbone.js Form</title>
     
-    <!-- vendor javascripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="http://documentcloud.github.com/underscore/underscore-min.js">
-    </script>
-    <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
-    <script src="assets/vendor/deep-model.min.js"></script>
+    <!-- vendor scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="http://documentcloud.github.com/underscore/underscore-min.js">
+        </script>
+        <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+        <script src="assets/vendor/deep-model.min.js"></script>
+    <!-- end vendor scripts -->
 
     <!-- styles -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/style.css">
+    <!-- end styles -->
 
 </head>
 <body>
-    <!-- app container -->
-    <div id="form-container">
-        <script type="text/template" id="form-tpl">
-            <form>
-                <div id="title-container" class="container" ></div>
-                <div id="description-container" class="container" ></div>
-                <div id="internalnotes-container" class="container" ></div>
-                <div id="materials-container" class="container" ></div>
-                <div id="measurements-container" class="container" ></div>
-                <div id="dimensions-container" class="container" ></div>
-                <div id="conditions-container" class="container" ></div>
-                <div id="save-container" class="container" ></div>
-            </form>
-        </script>
-    </div>
+    <!-- rendered DOM -->
+        <div id="form-container">
+            <script type="text/template" id="form-tpl">
+                <form method="POST" action="save">
+                    <div id="title-container" class="container" ></div>
+                    <div id="description-container" class="container" ></div>
+                    <div id="internalnotes-container" class="container" ></div>
+                    <div id="materials-container" class="container" ></div>
+                    <div id="measurements-container" class="container" ></div>
+                    <div id="dimensions-container" class="container" ></div>
+                    <div id="conditions-container" class="container" ></div>
+                    <div id="save-container" class="container" ></div>
+                </form>
+            </script>
+        </div>
+    <!-- end DOM -->
 
-    <!-- templates -->
+    <!-- underscore templates -->
         <script type="text/template" id="title-tpl">
             <label for="title">Title</label>
             <input class="title" type="text" name="title" value="<%= title %>" >
@@ -117,7 +120,7 @@
         </script>
     <!-- end templates -->
 
-    <!-- local javascripts -->
+    <!-- local scripts -->
         <script src="script/app/scaffold.js"></script>
         <script src="script/models/Item.js"></script>
         <script src="script/models/Enumerable.js"></script>

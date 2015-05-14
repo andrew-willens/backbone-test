@@ -1,4 +1,5 @@
 app.Views.Title = Backbone.View.extend({
+    
     el: "#title-container",
 
     initialize: function() {
@@ -12,7 +13,6 @@ app.Views.Title = Backbone.View.extend({
                 title: this.model.get('item.title')
             }) 
         );
-
         return this;
     }
     

@@ -20,6 +20,8 @@ var port       = 8080,
 
 // serve
 http.createServer( function ( req, res ) {
+    
+    // faux router
     switch (req.url) {
         case "/save":
             convenience.saveItem(req, res);
@@ -69,6 +71,7 @@ var convenience = {
                 fs.readFileSync('./mock-db/item.json').toString()
             );
 
+            // problem: due to incosistent nesting between currentItem and urlObj, currentItem is not properly updated
             for (var param in urlObj) {
                 console.log(param +": "+ urlObj[params]);
                 currentItem[param] = urlObj[param];
